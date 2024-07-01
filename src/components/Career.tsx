@@ -128,6 +128,7 @@ const Career = () => {
 				</Box>
 			</Box>
 			<Grid sx={{ mt: "3rem" }}>
+				{/* slider use from prime react */}
 				<Carousel
 					value={items}
 					numVisible={3}

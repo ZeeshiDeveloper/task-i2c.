@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
 	AppBar,
 	Toolbar,
@@ -15,7 +15,7 @@ import {
 	useTheme,
 	useMediaQuery,
 } from "@mui/material";
-import i2CLogo from "../images/Logo.png"
+import i2CLogo from "../images/Logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 
 interface INavbarCallbacks {
@@ -24,15 +24,18 @@ interface INavbarCallbacks {
 	onCareerClick: () => void;
 }
 
+const Navigation: React.FC<INavbarCallbacks> = ({
+	onAboutClick,
+	onRegistrationClick,
+	onCareerClick,
+}) => {
+	const theme = useTheme();
 
-const Navigation: React.FC<INavbarCallbacks> = ({onAboutClick,onRegistrationClick,onCareerClick}) => {
-    const theme = useTheme();
-    
-    const navLinks = [
-        { label: "About us", onClick: onAboutClick},
-        { label: "Registration", onClick: onRegistrationClick},
-        { label: "Career", onClick: onCareerClick}
-    ];
+	const navLinks = [
+		{ label: "About us", onClick: onAboutClick },
+		{ label: "Registration", onClick: onRegistrationClick },
+		{ label: "Career", onClick: onCareerClick },
+	];
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 	const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
 	const isExtraLargeScreen = useMediaQuery(theme.breakpoints.up("xl"));
@@ -42,24 +45,25 @@ const Navigation: React.FC<INavbarCallbacks> = ({onAboutClick,onRegistrationClic
 	let margin;
 
 	if (isSmallScreen) {
-		margin = 'auto';
+		margin = "auto";
 	} else if (isMediumScreen2) {
-		margin = '0 220px'; 
+		margin = "0 220px";
 	} else if (isMediumScreen1) {
-		margin = 'auto'; 
+		margin = "auto";
 	} else if (isLargeScreen || isExtraLargeScreen) {
-		margin = '0 235px 0 227px';
+		margin = "0 235px 0 227px";
 	} else {
-		margin = 'auto';
+		margin = "auto";
 	}
 
-    const [drawerOpen, setDrawerOpen] = useState(false);
+	const [drawerOpen, setDrawerOpen] = useState(false);
 
 	const toggleDrawer = (open: boolean) => {
 		setDrawerOpen(open);
 	};
 
-    const renderMobileMenu = (
+	//for small screen navigation bar (drawer) from mui
+	const renderMobileMenu = (
 		<Drawer
 			anchor="right"
 			open={drawerOpen}
@@ -82,50 +86,57 @@ const Navigation: React.FC<INavbarCallbacks> = ({onAboutClick,onRegistrationClic
 				))}
 				<Divider />
 				<Box sx={{ margin: "15px 30px" }}>
-                <Button
-								// color="inherit"
-								variant="contained"
-								sx={{ marginRight: "10px" }}
-							>
-								
-									Contact us
-							</Button>
+					<Button
+						// color="inherit"
+						variant="contained"
+						sx={{ marginRight: "10px" }}
+					>
+						Contact us
+					</Button>
 				</Box>
 			</List>
 		</Drawer>
 	);
 
-  return (
-    <AppBar
+	return (
+		<AppBar
 			position="sticky"
 			style={{ top: 0, backgroundColor: "#eff7ff", zIndex: 1000 }}
 		>
-			<Container 
-            sx={{margin:margin,minWidth:"-webkit-fill-available"}}
-            >
+			<Container sx={{ margin: margin, minWidth: "-webkit-fill-available" }}>
 				<Toolbar>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1, display:"flex", alignItems:"center" }}>
+					<Typography
+						variant="h6"
+						component="div"
+						sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
+					>
 						<img
 							src={i2CLogo}
 							alt="Logo"
-							style={{ marginRight: '10px', height: '30px', width: 'auto' }}
-							/>
+							style={{ marginRight: "10px", height: "30px", width: "auto" }}
+						/>
 					</Typography>
 					{/* Display menu icon for small screens */}
 					<IconButton
 						color="inherit"
 						aria-label="open drawer"
 						onClick={() => toggleDrawer(true)}
-						sx={{ display: { md: "none" }, color:"#000" }}
+						sx={{ display: { md: "none" }, color: "#000" }}
 					>
 						<MenuIcon />
 					</IconButton>
 					{/* Display regular navigation for medium and larger screens */}
 					<Box sx={{ display: { xs: "none", md: "flex" } }}>
 						{navLinks.map((link, index) => (
-							<Button key={index} color="inherit" 
-                            onClick={link.onClick}
-                            sx={{color:"rgba(0,0,0,.5)","&.MuiButton-root:hover":{color:"#000"}}}>
+							<Button
+								key={index}
+								color="inherit"
+								onClick={link.onClick}
+								sx={{
+									color: "rgba(0,0,0,.5)",
+									"&.MuiButton-root:hover": { color: "#000" },
+								}}
+							>
 								{link.label}
 							</Button>
 						))}
@@ -135,10 +146,8 @@ const Navigation: React.FC<INavbarCallbacks> = ({onAboutClick,onRegistrationClic
 								variant="contained"
 								sx={{ marginRight: "10px" }}
 							>
-								
-									Contact us
+								Contact us
 							</Button>
-							
 						</Box>
 					</Box>
 					<Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -147,7 +156,7 @@ const Navigation: React.FC<INavbarCallbacks> = ({onAboutClick,onRegistrationClic
 				</Toolbar>
 			</Container>
 		</AppBar>
-  )
-}
+	);
+};
 
-export default Navigation
+export default Navigation;
